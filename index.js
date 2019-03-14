@@ -1,14 +1,19 @@
 const fs = require('fs')
 const pdf = require('html-pdf')
-const options = { format: 'Letter' }
-const mkdirp = require('mkdirp')
+const options = { 
+  format: 'Letter',
+  "orientation": "portrait",
+  "border": {
+    "top": "0.5in",            // default is 0, units: mm, cm, in, px
+    "right": "1in",
+    "bottom": "2in",
+    "left": "1.5in"
+  },
+}
 
-const _ = require('lodash')
-const PDFDocument = require('pdfkit')
+const html = fs.readFileSync('./king-arthurs-tomb.html', 'utf8')
 
-const html = fs.readFileSync('./defence.html', 'utf8')
-
-pdf.create(html, options).toFile('./defence.pdf', function(err, res) {
+pdf.create(html, options).toFile('./king-arthurs-tomb.pdf', function(err, res) {
   if (err) return console.log(err);
   console.log(res); // { filename: '/app/businesscard.pdf' }
 })
